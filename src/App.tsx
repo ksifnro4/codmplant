@@ -12,9 +12,9 @@ const mapList = [
 ];
 
 const markerTypes: { type: MarkerType; label: string; icon: React.ReactNode }[] = [
-  { type: "red", label: "赤点", icon: <svg width={40} height={40}><circle cx={20} cy={20} r={13} fill="#E53E3E" stroke="#fff" strokeWidth={2} /></svg> },
-  { type: "blue", label: "青点", icon: <svg width={40} height={40}><circle cx={20} cy={20} r={13} fill="#3182CE" stroke="#fff" strokeWidth={2} /></svg> },
-  { type: "gre", label: "グレ", icon: <svg width={40} height={40}><polygon points="20,7 24,17 34,17 26,24 28,33 20,28 12,33 14,24 6,17 16,17" fill="#444" stroke="#FFEE58" strokeWidth={3} /></svg> },
+  { type: "red", label: "赤点", icon: <svg width={30} height={40}><circle cx={20} cy={20} r={13} fill="#E53E3E" stroke="#fff" strokeWidth={2} /></svg> },
+  { type: "blue", label: "青点", icon: <svg width={30} height={40}><circle cx={20} cy={20} r={13} fill="#3182CE" stroke="#fff" strokeWidth={2} /></svg> },
+  { type: "gre", label: "グレ", icon: <svg width={30} height={40}><polygon points="20,7 24,17 34,17 26,24 28,33 20,28 12,33 14,24 6,17 16,17" fill="#444" stroke="#FFEE58" strokeWidth={3} /></svg> },
   { type: "smoke", label: "モク", icon: <svg width={40} height={40}><circle cx={20} cy={20} r={13} fill="#bbb" stroke="#555" strokeWidth={2} opacity={0.7} /></svg> },
   { type: "trophy", label: "トロフィー", icon: <svg width={40} height={40}><rect x={8} y={12} width={24} height={24} fill="#FFDA79" stroke="#a58e47" strokeWidth={2} rx={4} /><circle cx={20} cy={24} r={6} fill="#fff" stroke="#a58e47" strokeWidth={1} /></svg> },
   { type: "flash", label: "フラッシュ", icon: <svg width={40} height={40}><polygon points="12,12 20,30 28,12 22,17 16,30" fill="#FFE066" stroke="#e3ba2f" strokeWidth={2} /></svg> },
@@ -486,6 +486,18 @@ export default function App() {
         eraserMode={eraserMode}
         onToggleEraser={() => setEraserMode(e => !e)}
       />
+      <div
+        className="touch-block"
+        ref={containerRef}
+        style={{
+          width: "80vw",
+          height: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "#222",
+        }}
+      ></div>
       <div
         ref={containerRef}
         style={{
