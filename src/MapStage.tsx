@@ -1,5 +1,4 @@
 // MapStage.tsx
-import React from "react";
 import { Stage, Layer, Image as KonvaImage, Group } from "react-konva";
 import useImage from "use-image";
 import type { Marker, MapState, PenLine, MarkerType } from "./types";

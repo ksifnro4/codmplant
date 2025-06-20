@@ -1,5 +1,4 @@
 // pens/PenLayer.tsx
-import React from "react";
 import { Line } from "react-konva";
 import type { PenLine } from "../types";
 

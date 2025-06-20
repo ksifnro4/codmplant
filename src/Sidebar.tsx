@@ -1,5 +1,4 @@
 // Sidebar.tsx
-import React from "react";
 import type { MarkerType } from "./types";
 
 type MarkerTypeDef = { type: MarkerType; label: string; icon: React.ReactNode };
