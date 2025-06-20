@@ -465,6 +465,9 @@ export default function App() {
   // --- UI ---
   return (
     <div style={{ display: "flex", minHeight: "100vh", width: "100vw" }}>
+      <div
+        className="sidebar"
+      ></div>
       <Sidebar
         patternIdx={patternIdx}
         patternNames={patterns.map((p, i) => p.name || `セット${i + 1}`)}
