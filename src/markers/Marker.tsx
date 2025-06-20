@@ -9,9 +9,9 @@ export function MarkerIcon({ marker, scale = 1 }: { marker: Marker; scale?: numb
     const y = marker.y * scale;
     switch (marker.type) {
         case "red":
-            return <Circle x={x} y={y} radius={20} fill="#E53E3E" stroke="#fff" strokeWidth={2} />;
+            return <Circle x={x} y={y} radius={15} fill="#E53E3E" stroke="#fff" strokeWidth={2} />;
         case "blue":
-            return <Circle x={x} y={y} radius={20} fill="#3182CE" stroke="#fff" strokeWidth={2} />;
+            return <Circle x={x} y={y} radius={15} fill="#3182CE" stroke="#fff" strokeWidth={2} />;
         case "gre":
             return <Star x={x} y={y} numPoints={5} innerRadius={10} outerRadius={16} fill="#444" stroke="#FFEE58" strokeWidth={6} />;
         case "smoke":
