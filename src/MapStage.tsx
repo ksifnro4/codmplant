@@ -11,6 +11,10 @@ type Props = {
     mapState: MapState;
     imgSize: { width: number; height: number };
     stageRef: any;
+    stageScale: number;
+    stagePos: { x: number; y: number };
+    onStageWheel: (e: any) => void;
+    onStageDragMove: (e: any) => void;
     onFovSpread: (id: string, newSpread: number) => void;
     onMarkerDragEnd: (e: any, id: string) => void;
     onMarkerContextMenu: (e: any, id: string) => void;
@@ -46,6 +50,13 @@ export function MapStage(props: Props) {
                 display: "block",
                 margin: "auto",
             }}
+            scaleX={props.stageScale}
+            scaleY={props.stageScale}
+            x={props.stagePos.x}
+            y={props.stagePos.y}
+            onWheel={props.onStageWheel}
+            draggable
+            onDragMove={props.onStageDragMove}
             onMouseDown={props.onStageMouseDown}
             onMouseMove={props.onStageMouseMove}
             onMouseUp={props.onStageMouseUp}

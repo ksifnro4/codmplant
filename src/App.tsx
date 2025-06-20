@@ -316,6 +316,69 @@ export default function App() {
     }));
   };
 
+  // --- ズームイン・アウト ---
+  const [stageScale, setStageScale] = useState(1);
+  const [stagePos, setStagePos] = useState({ x: 0, y: 0 });
+
+  const handleStageWheel = (e: any) => {
+    e.evt.preventDefault();
+    const scaleBy = 1.1;
+    let newScale = stageScale;
+    if (e.evt.deltaY < 0) {
+      newScale = stageScale * scaleBy;
+    } else {
+      newScale = stageScale / scaleBy;
+    }
+    // ズームの中心をマウスポインタ位置に合わせる
+    const stage = stageRef.current;
+    const pointer = stage.getPointerPosition();
+    if (!pointer) return;
+    const mousePointTo = {
+      x: (pointer.x - stagePos.x) / stageScale,
+      y: (pointer.y - stagePos.y) / stageScale
+    };
+    setStageScale(newScale);
+    setStagePos({
+      x: pointer.x - mousePointTo.x * newScale,
+      y: pointer.y - mousePointTo.y * newScale
+    });
+  };
+  // App.tsx
+  useEffect(() => {
+    let lastDist = 0;
+    function getDistance(touches: TouchList) {
+      const [a, b] = [touches[0], touches[1]];
+      return Math.sqrt(
+        Math.pow(a.clientX - b.clientX, 2) + Math.pow(a.clientY - b.clientY, 2)
+      );
+    }
+    function handleTouchMove(e: TouchEvent) {
+      if (e.touches.length === 2) {
+        e.preventDefault();
+        const dist = getDistance(e.touches);
+        if (lastDist) {
+          const scaleBy = dist / lastDist;
+          setStageScale(s => Math.max(0.5, Math.min(4, s * scaleBy)));
+        }
+        lastDist = dist;
+      }
+    }
+    function handleTouchEnd(e: TouchEvent) {
+      if (e.touches.length < 2) lastDist = 0;
+    }
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    window.addEventListener("touchend", handleTouchEnd);
+    return () => {
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, []);
+
+
+  // ドラッグ移動対応（タッチやドラッグで画像位置変更）
+  const handleStageDragMove = (e: any) => {
+    setStagePos(e.target.position());
+  };
 
 
   // --- ペン ---
@@ -438,6 +501,10 @@ export default function App() {
           mapState={state}
           imgSize={imgSize}
           stageRef={stageRef}
+          stageScale={stageScale}
+          stagePos={stagePos}
+          onStageWheel={handleStageWheel}
+          onStageDragMove={handleStageDragMove}
           onFovSpread={handleFovSpread}
           onMarkerDragEnd={handleMarkerDragEnd}
           onMarkerContextMenu={handleMarkerContextMenu}
